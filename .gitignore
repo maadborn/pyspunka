@@ -45,3 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.suo
+weatherservice/weatherservice/serviceconfig.py
+dataservice/dataservice/dataservice.pyproj.user
