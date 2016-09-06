@@ -16,7 +16,7 @@ MONGO_DBNAME = 'apidev'
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
 # (if you omit this line, the API will default to ['GET'] and provide
 # read-only access to the endpoint).
-RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
+RESOURCE_METHODS = ['GET', 'POST']
 
 # Enable reads (GET), edits (PATCH), replacements (PUT) and deletes of
 # individual items  (defaults to read-only item access).
@@ -28,20 +28,20 @@ DOMAIN = {
     # Adapted from http://openweathermap.org/current#parameter
     'weather': {
         'schema': {
-            'locid':    { 'type': 'integer' },
-            'locname':  { 'type': 'string' },
+            'locid':   { 'type': 'integer' },
+            'locname': { 'type': 'string' },
             'loccoords': {
                 'type': 'dict',
                 'schema': {
-                    'lat': {'type': 'number'},
-                    'lon': {'type': 'number'},
+                    'lat': { 'type': 'number' },
+                    'lon': { 'type': 'number' },
                 },
             },
             'wind': {
                 'type': 'dict',
                 'schema': {
-                    'speed': {'type': 'number'},
-                    'deg':   {'type': 'number'},
+                    'speed': { 'type': 'number' },
+                    'deg':   { 'type': 'number' },
                 },
             },
             'rain3h':   { 'type': 'number' },
@@ -59,8 +59,13 @@ DOMAIN = {
                     'main': { 'type': 'string' },
                     'description': { 'type': 'string' },
                     'icon': { 'type': 'string' },
-                }
-            }
-        }
-    }
+                },
+            },
+        },
+    },
+    'dump': {
+        'schema': {
+            'x': { 'type': 'string' },
+        },
+    },
 }
