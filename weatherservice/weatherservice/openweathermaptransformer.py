@@ -42,7 +42,9 @@ def transform_data(data):
         or key == 'main' \
         or key == 'visibility' \
         or key == 'temp_min' \
-        or key == 'temp_max':
+        or key == 'temp_max' \
+        or key == 'grnd_level' \
+        or key == 'sea_level':
             return False
         return True
 
@@ -57,7 +59,7 @@ def transform_data(data):
 # TEST
 
 data = {
-    "base": "cmc stations",
+    "base": "stations",
     "clouds": {
         "all": 20
     },
@@ -66,37 +68,79 @@ data = {
         "lat": 58.47,
         "lon": 15.63
     },
-    "dt": 1472912400,
+    "dt": 1474485377,
     "id": 2716758,
     "main": {
-        "humidity": 63,
-        "pressure": 1006,
-        "temp": 291.47,
-        "temp_max": 292.15,
-        "temp_min": 291.15
+        "grnd_level": 1022.41,
+        "humidity": 77,
+        "pressure": 1022.41,
+        "sea_level": 1037.51,
+        "temp": 285.496,
+        "temp_max": 285.496,
+        "temp_min": 285.496
     },
     "name": "Ekangen",
     "sys": {
         "country": "SE",
-        "id": 5424,
-        "message": 0.0026,
-        "sunrise": 1472875359,
-        "sunset": 1472924935,
-        "type": 1
+        "message": 0.1644,
+        "sunrise": 1474432942,
+        "sunset": 1474476998
     },
     "weather": [
         {
             "description": "few clouds",
-            "icon": "02d",
+            "icon": "02n",
             "id": 801,
             "main": "Clouds"
         }
     ],
     "wind": {
-        "deg": 240,
-        "speed": 6.2
+        "deg": 41.5022,
+        "speed": 0.91
     }
 }
+
+#data = {
+#    "base": "cmc stations",
+#    "clouds": {
+#        "all": 20
+#    },
+#    "cod": 200,
+#    "coord": {
+#        "lat": 58.47,
+#        "lon": 15.63
+#    },
+#    "dt": 1472912400,
+#    "id": 2716758,
+#    "main": {
+#        "humidity": 63,
+#        "pressure": 1006,
+#        "temp": 291.47,
+#        "temp_max": 292.15,
+#        "temp_min": 291.15
+#    },
+#    "name": "Ekangen",
+#    "sys": {
+#        "country": "SE",
+#        "id": 5424,
+#        "message": 0.0026,
+#        "sunrise": 1472875359,
+#        "sunset": 1472924935,
+#        "type": 1
+#    },
+#    "weather": [
+#        {
+#            "description": "few clouds",
+#            "icon": "02d",
+#            "id": 801,
+#            "main": "Clouds"
+#        }
+#    ],
+#    "wind": {
+#        "deg": 240,
+#        "speed": 6.2
+#    }
+#}
 
 result = transform_data(data)
 pprint(result)

@@ -24,6 +24,10 @@ ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 
 #########################
 
+X_DOMAINS = '*'
+
+#########################
+
 DOMAIN = {
     # Adapted from http://openweathermap.org/current#parameter
     'weather': {

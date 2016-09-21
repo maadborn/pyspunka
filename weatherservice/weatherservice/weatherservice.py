@@ -8,20 +8,18 @@ class WeatherService:
     COLLECT_DATA_DELAY_SECONDS = 60 * 15
     #COLLECT_DATA_DELAY_SECONDS = 60 * 60
 
-    weather_data_collector = WeatherDataCollector();
-    data_service_client = DataServiceClient();
+    weather_data_collector = WeatherDataCollector()
+    data_service_client = DataServiceClient()
 
     def start(self):
         #logging.config.fileConfig('logging.conf')
         #logger = logging.getLogger('weatherService')
-
-        # TODO Data should be written at x:00:00, every hour. Adapt the first run
 
         while True:
             try:
                 data = self.weather_data_collector.collect_default()
                 self.data_service_client.send(data)
             except Exception as err:
-                print('Failed to process data in main loop', file=sys.stderr, flush=True)
+                print('Failed to process data in main loop' + err, file=sys.stderr, flush=True)
 
             time.sleep(self.COLLECT_DATA_DELAY_SECONDS)
