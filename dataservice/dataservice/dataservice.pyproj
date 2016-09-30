@@ -22,9 +22,19 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="customroutesweather.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="dataservice.py" />
+    <Compile Include="dataservicejsonencoder.py" />
     <Compile Include="run.py" />
     <Compile Include="settings.py" />
+    <Compile Include="weatherdataaccess.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

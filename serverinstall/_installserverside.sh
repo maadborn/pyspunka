@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 now=$(date +"%Y%m%d_%H%M%S")
 oldzipfile="pyday_$now.zip"
@@ -19,7 +19,6 @@ echo
 
 echo '----------- Remove deployed files ----------'
 rm -rf /home/snigel/pydaytest/deployed/*
-echo
 echo 'done'
 echo
 

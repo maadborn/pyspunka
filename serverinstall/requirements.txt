@@ -1,3 +1,4 @@
 boltons
 Eve
 requests
+flask-cors
