@@ -1,14 +1,13 @@
 import time
-import sys
 #import logging
-from weatherdatacollector import WeatherDataCollector
+from openweathermap import datacollector
 from dataserviceclient import DataServiceClient
+import logger
 
 class WeatherService:
     COLLECT_DATA_DELAY_SECONDS = 60 * 15
-    #COLLECT_DATA_DELAY_SECONDS = 60 * 60
-
-    weather_data_collector = WeatherDataCollector()
+    
+    weather_data_collector = datacollector.OpenWeatherMapDataCollector()
     data_service_client = DataServiceClient()
 
     def start(self):
@@ -20,6 +19,6 @@ class WeatherService:
                 data = self.weather_data_collector.collect_default()
                 self.data_service_client.send(data)
             except Exception as err:
-                print('Failed to process data in main loop' + err, file=sys.stderr, flush=True)
+                log_error('Failed to process data in main loop', err)
 
             time.sleep(self.COLLECT_DATA_DELAY_SECONDS)

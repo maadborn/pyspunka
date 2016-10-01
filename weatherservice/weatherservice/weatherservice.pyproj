@@ -25,7 +25,13 @@
     <Compile Include="dataserviceclient.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="openweathermaptransformer.py">
+    <Compile Include="openweathermap\validator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="openweathermap\transformer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="openweathermap\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="run.py">
@@ -34,13 +40,31 @@
     <Compile Include="serviceconfig.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="weatherdatacollector.py">
+    <Compile Include="tests\openweathermap_validatortest.py" />
+    <Compile Include="tests\openweathermap_transformertest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="utils\logger.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="openweathermap\datacollector.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="utils\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="weatherservice.py" />
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="logging.conf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="openweathermap\" />
+    <Folder Include="tests\" />
+    <Folder Include="utils\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
