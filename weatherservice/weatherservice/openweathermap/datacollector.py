@@ -18,6 +18,8 @@ class OpenWeatherMapDataCollector:
         except Exception as err:
             logger.log_error('Failed to collect data', err)
 
+        return None;
+
     def collect_default(self):
         return self.collect(serviceconfig.LOCATION_ID_DEFAULT)
 

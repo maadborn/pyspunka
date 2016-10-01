@@ -17,7 +17,8 @@ class WeatherService:
         while True:
             try:
                 data = self.weather_data_collector.collect_default()
-                self.data_service_client.send(data)
+                if data != None:
+                    self.data_service_client.send(data)
             except Exception as err:
                 logger.log_error('Failed to process data in main loop', err)
 

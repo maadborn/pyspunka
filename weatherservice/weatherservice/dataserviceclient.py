@@ -34,6 +34,6 @@ class DataServiceClient:
                 logger.log_info('Values already stored - locid={}, time={}'.format(filters['locid'], filters['time']))
 
         except Exception as err:
-            log_error('Failed to validate unique weather data', err)
+            logger.log_error('Failed to validate unique weather data', err)
 
         return False
