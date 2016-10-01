@@ -8,20 +8,26 @@ read -p "Continue (type 'yes' to continue)? " choice
 case "$choice" in 
   yes ) 
 	echo
+	echo '---------- Cleaning up possible leftovers ----------'
+	rm -rf _deployfiles
+	rm -f temp.zip
+	rm -f _installserverside.sh
+	echo done.
+	echo
 	echo '---------- Creating _deployfiles directory ----------'
 	mkdir _deployfiles
 	echo done.
 	echo
 	echo '--------- Copying server installation files ---------'
-	rsync -avm serverinstall/* _deployfiles
+	rsync -ravm serverinstall/ _deployfiles
 	echo
 	echo '------------- Copying DataService files -------------'
 	mkdir _deployfiles/dataservice
-	rsync -avm dataservice/dataservice/*.{py,conf} _deployfiles/dataservice/
+	rsync -ravm dataservice/dataservice/ _deployfiles/dataservice/
 	echo
 	echo '------------ Copying WeatherService files -----------'
 	mkdir _deployfiles/weatherservice
-	rsync -avm weatherservice/weatherservice/*.{py,conf} _deployfiles/weatherservice/
+	rsync -ravm weatherservice/weatherservice/ _deployfiles/weatherservice/
 	echo
 	echo '----------- Compressing _deployfiles ----------'
 	echo

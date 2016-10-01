@@ -1,7 +1,7 @@
 import requests
 import json
-import logger
 import serviceconfig
+from utils import logger
 from pprint import pprint
 
 class DataServiceClient:
@@ -9,17 +9,17 @@ class DataServiceClient:
     #logger = logging.getLogger('weatherService')
 
     def send(self, data):
-        if not self.validate_unique(transformed_data):
+        if not self.validate_unique(data):
             return None
 
-        json_dumped_data = json.dumps(transformed_data)
+        json_dumped_data = json.dumps(data)
         
         try:
             headers = {'Content-type': 'application/json'}
             response = requests.post(serviceconfig.URL_DATA_SERVICE_WEATHER, headers = headers, data = json_dumped_data)
-            log_info(response)
+            logger.log_info(response)
         except Exception as err:
-            log_error('Failed to send weather data', err)
+            logger.log_error('Failed to send weather data', err)
 
     def validate_unique(self, data_dict):
         '''Validates that data service doesn't already contain the data'''
@@ -31,7 +31,7 @@ class DataServiceClient:
             if len(response.json()['_items']) == 0:
                 return True
             else:
-                log_info('Values already stored - locid={}, time={}'.format(filters['locid'], filters['time']))
+                logger.log_info('Values already stored - locid={}, time={}'.format(filters['locid'], filters['time']))
 
         except Exception as err:
             log_error('Failed to validate unique weather data', err)
