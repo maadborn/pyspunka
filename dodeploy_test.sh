@@ -23,11 +23,11 @@ case "$choice" in
 	echo
 	echo '------------- Copying DataService files -------------'
 	mkdir _deployfiles/dataservice
-	rsync -ravm dataservice/dataservice/ _deployfiles/dataservice/
+	rsync -ravm services/dataservice/ _deployfiles/dataservice/
 	echo
 	echo '------------ Copying WeatherService files -----------'
 	mkdir _deployfiles/weatherservice
-	rsync -ravm weatherservice/weatherservice/ _deployfiles/weatherservice/
+	rsync -ravm services/weatherservice/ _deployfiles/weatherservice/
 	echo
 	echo '----------- Compressing _deployfiles ----------'
 	echo
