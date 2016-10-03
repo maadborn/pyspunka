@@ -1,26 +1,34 @@
-from boltons.iterutils import remap
-from pprint import pprint
+'''wu_transformer'''
 
 class WUTransformer:
+    '''WUTransformer'''
+
     def transform_data(self, data, location_id):
-        def limit_to_one_decimal(input):
-            return float('{0:.1f}'.format(convert_to_float(input)))
+        '''transform_data'''
+
+        def limit_to_one_decimal(num):
+            '''limit_to_one_decimal'''
+            return float('{0:.1f}'.format(convert_to_float(num)))
 
         def convert_kmph_to_mps(kmph):
-            return limit_to_one_decimal(kmph / 3.6);
+            '''convert_kmph_to_mps'''
+            return limit_to_one_decimal(kmph / 3.6)
 
         def convert_humidity_str_to_float(humidity_str):
+            '''convert_humidity_str_to_float'''
             return limit_to_one_decimal(humidity_str.replace('%', ''))
 
-        def convert_to_float(input):
+        def convert_to_float(arg):
+            '''convert_to_float'''
             try:
-                return float(input)
+                return float(arg)
             except ValueError:
                 return 0.0
 
-        def convert_to_int(input):
+        def convert_to_int(arg):
+            '''convert_to_int'''
             try:
-                return int(input)
+                return int(arg)
             except ValueError:
                 return 0
 
@@ -46,7 +54,7 @@ class WUTransformer:
             'location_id':  location_id,
         }
 
-        return new_data;
+        return new_data
 
         #new_data = {
         #    "station_id": "ESCF",

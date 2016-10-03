@@ -1,17 +1,20 @@
+'''wu_validatortest'''
+
 import unittest
-from pprint import pprint
-from wunderground.validator import WUValidator
+from wunderground.wu_validator import wu_validate
 
 class WUValidateTest(unittest.TestCase):
-    def wu_validate_ok(self):
-        v = WUValidator()
-        v.validate(self.testdata_wu_validate_ok)
+    '''WUValidateTest'''
+
+    def test_wu_validate_ok(self):
+        '''wu_validate_ok'''
+        wu_validate(self.testdata_wu_validate_ok)
         self.assertEqual(1, 1, 'Just to have something to assert')
 
-    def wu_validate_error(self):
-        v = WUValidator()
+    def test_wu_validate_error(self):
+        '''wu_validate_error'''
         with self.assertRaisesRegex(Exception, 'No cities match your search query'):
-            v.validate(self.testdata_wu_validate_error)
+            wu_validate(self.testdata_wu_validate_error)
 
     testdata_wu_validate_ok = {
         "response": {

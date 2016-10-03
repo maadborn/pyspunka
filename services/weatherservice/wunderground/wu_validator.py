@@ -1,8 +1,10 @@
-class WUValidator:
-    def validate(self, data):
-        if 'response' in data and 'error' in data['response']:
-            raise Exception('{}: {}: {}'.format('Failed to validate received data', data['response']['error']['type'], data['response']['error']['description']))
-    
+'''validate'''
+
+def wu_validate(data):
+    '''wu_validate'''
+    if 'error' in data:
+        raise Exception('{}: {}: {}'.format('Failed to validate received data', data['error']['type'], data['error']['description']))
+
 # Failed request:
 #{
 #  "response": {

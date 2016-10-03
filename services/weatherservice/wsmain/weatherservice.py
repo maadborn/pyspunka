@@ -1,21 +1,22 @@
+'''weatherservice'''
+
 import time
 #import logging
-from openweathermap.datacollector import OpenWeatherMapDataCollector
-from wunderground.datacollector import WUDataCollector
-from wsmain.dataserviceclient import DataServiceClient
+from openweathermap.owm_datacollector import OpenWeatherMapDataCollector
+from wunderground.wu_datacollector import WUDataCollector
+from wsmain.dataserviceclient import DataServiceClient, serviceconfig
 from utils import logger
 
 class WeatherService:
-    COLLECT_DATA_DELAY_SECONDS = 60 * 15
-    
+    '''WeatherService'''
+
     owm_data_collector = OpenWeatherMapDataCollector()
     wu_data_collector = WUDataCollector()
     data_service_client = DataServiceClient()
 
     def start(self):
-        #logging.config.fileConfig('logging.conf')
-        #logger = logging.getLogger('weatherService')
-        
+        '''start'''
+
         wu_location = self.data_service_client.get_wu_location_default()
         if wu_location is None:
             raise Exception('Default location for WU not found')
@@ -38,4 +39,4 @@ class WeatherService:
             except Exception as err:
                 logger.log_error('Failed to process WeatherUnderground data in main loop', err)
 
-            time.sleep(self.COLLECT_DATA_DELAY_SECONDS)
+            time.sleep(serviceconfig.UPDATE_INTERVAL)

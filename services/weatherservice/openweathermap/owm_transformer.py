@@ -1,14 +1,20 @@
+'''OpenWeatherMapTransformer'''
 from boltons.iterutils import remap
-from pprint import pprint
 
 class OpenWeatherMapTransformer:
+    '''OpenWeatherMapTransformer'''
+
     def transform_data(self, data):
+        '''Transforms OpenWeatherMap data to match our schema'''
+
         def move_main(data):
+            '''Moves the main item's content to the root level'''
             main = data['main']
             data.update(main)
             return data
-    
+
         def visit_move(path, key, value):
+            '''Moves various items'''
             if key == 'clouds':
                 return key, value['all']
             if key == 'rain':
@@ -20,6 +26,7 @@ class OpenWeatherMapTransformer:
             return True
 
         def visit_rename(path, key, value):
+            '''Renames various items'''
             if key == 'coord':
                 return 'loccoords', value
             if key == 'dt':
@@ -37,6 +44,7 @@ class OpenWeatherMapTransformer:
             return True
 
         def visit_remove(path, key, value):
+            '''Removes various items'''
             if key == 'base' \
             or key == 'cod' \
             or key == 'sys' \
@@ -50,9 +58,9 @@ class OpenWeatherMapTransformer:
             return True
 
         transformed_data = move_main(data)
-        transformed_data = remap(transformed_data, visit = visit_move)
-        transformed_data = remap(transformed_data, visit = visit_rename)
-        transformed_data = remap(transformed_data, visit = visit_remove)
+        transformed_data = remap(transformed_data, visit=visit_move)
+        transformed_data = remap(transformed_data, visit=visit_rename)
+        transformed_data = remap(transformed_data, visit=visit_remove)
 
         return transformed_data
 

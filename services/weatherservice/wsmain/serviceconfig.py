@@ -1,4 +1,6 @@
-# Configuration for the Weather Service project
+'''Configuration for the Weather Service project'''
+
+UPDATE_INTERVAL = 60 * 60   # 60 minutes
 
 # http://api.openweathermap.org/data/2.5/weather?id=2716758&appid=f0db5dccac9fb038bf628776d6709f06
 OWM_API_KEY = 'f0db5dccac9fb038bf628776d6709f06'

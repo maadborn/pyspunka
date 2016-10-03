@@ -1,24 +1,28 @@
-import requests
+'''dataserviceclient'''
+
 import json
+import requests
 from wsmain import serviceconfig
 from utils import logger
-from pprint import pprint
 
 class DataServiceClient:
+    '''DataServiceClient'''
+
     #logging.config.fileConfig('logging.conf')
     #logger = logging.getLogger('weatherService')
 
     #### OWM METHODS ####
 
     def send_owm(self, data):
+        '''send_owm'''
         if not self.validate_unique_owm(data):
             return None
 
         json_dumped_data = json.dumps(data)
-        
+
         try:
             headers = {'Content-type': 'application/json'}
-            response = requests.post(serviceconfig.URL_DATA_SERVICE_WEATHER, headers = headers, data = json_dumped_data)
+            response = requests.post(serviceconfig.URL_DATA_SERVICE_WEATHER, headers=headers, data=json_dumped_data)
             logger.log_info(response)
         except Exception as err:
             logger.log_error('Failed to send OWM weather data', err)
@@ -43,22 +47,25 @@ class DataServiceClient:
     #### WU METHODS ####
 
     def get_wu_location(self, city_id):
+        '''get_wu_location'''
         payload = {'city_id': json.dumps(city_id)}
         response = requests.get(serviceconfig.URL_DATA_SERVICE_LOCATION, params=payload)
         return response.json()['_items'][0]
 
     def get_wu_location_default(self):
+        '''get_wu_location_default'''
         return self.get_wu_location(serviceconfig.WU_LOCATION_CITY_ID_DEFAULT)
 
     def send_wu(self, data):
+        '''send_wu'''
         if not self.validate_unique_wu(data):
             return None
 
         json_dumped_data = json.dumps(data)
-        
+
         try:
             headers = {'Content-type': 'application/json'}
-            response = requests.post(serviceconfig.URL_DATA_SERVICE_WEATHER2, headers = headers, data = json_dumped_data)
+            response = requests.post(serviceconfig.URL_DATA_SERVICE_WEATHER2, headers=headers, data=json_dumped_data)
             logger.log_info(response)
         except Exception as err:
             logger.log_error('Failed to send WU weather data', err)

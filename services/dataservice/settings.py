@@ -82,7 +82,12 @@ DOMAIN = {
             'icon':         { 'type': 'string' },
             'icon_url':     { 'type': 'string' },
             'station_id':   { 'type': 'string' },
-            'location_id':  { 'type': 'objectid' },
+            'location_id':  { 'type': 'objectid',
+                              'data_relation': {
+                                  'resource': 'location',
+                                  'field': '_id'
+                              },
+            },
         },
     },
     'location': {

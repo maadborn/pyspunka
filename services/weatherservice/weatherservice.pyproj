@@ -22,17 +22,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="openweathermap\owm_datacollector.py" />
+    <Compile Include="openweathermap\owm_transformer.py" />
+    <Compile Include="openweathermap\owm_validator.py" />
+    <Compile Include="openweathermap\__init__.py" />
+    <Compile Include="tests\owm_transformertest.py" />
     <Compile Include="tests\wu_validatortest.py" />
     <Compile Include="wsmain\dataserviceclient.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="openweathermap\validator.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="openweathermap\transformer.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="openweathermap\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="run.py">
@@ -43,34 +39,28 @@
     </Compile>
     <Compile Include="tests\wu_transformertest.py" />
     <Compile Include="tests\owm_validatortest.py" />
-    <Compile Include="tests\owm_transformertest.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="utils\logger.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="openweathermap\datacollector.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="utils\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="wsmain\weatherservice.py" />
-    <Compile Include="wunderground\datacollector.py" />
-    <Compile Include="wunderground\transformer.py" />
-    <Compile Include="wunderground\validator.py" />
-    <Compile Include="wunderground\__init__.py" />
     <Compile Include="wsmain\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="wunderground\wu_datacollector.py" />
+    <Compile Include="wunderground\wu_transformer.py" />
+    <Compile Include="wunderground\wu_validator.py" />
+    <Compile Include="wunderground\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="logging.conf" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="openweathermap\" />
     <Folder Include="wsmain\" />
     <Folder Include="wunderground\" />
-    <Folder Include="openweathermap\" />
     <Folder Include="tests\" />
     <Folder Include="utils\" />
   </ItemGroup>
