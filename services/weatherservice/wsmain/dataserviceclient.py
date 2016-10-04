@@ -15,8 +15,10 @@ class DataServiceClient:
 
     def send_owm(self, data):
         '''send_owm'''
-        if not self.validate_unique_owm(data):
-            return None
+
+        # Skipping unique validation, let's always save the data
+        #if not self.validate_unique_owm(data):
+        #    return None
 
         json_dumped_data = json.dumps(data)
 
@@ -58,8 +60,9 @@ class DataServiceClient:
 
     def send_wu(self, data):
         '''send_wu'''
-        if not self.validate_unique_wu(data):
-            return None
+        # Skipping unique validation, let's always save the data
+        #if not self.validate_unique_wu(data):
+        #    return None
 
         json_dumped_data = json.dumps(data)
 

@@ -27,6 +27,9 @@
     <Compile Include="openweathermap\owm_validator.py" />
     <Compile Include="openweathermap\__init__.py" />
     <Compile Include="tests\owm_transformertest.py" />
+    <Compile Include="tests\weatherservicetest.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tests\wu_validatortest.py" />
     <Compile Include="wsmain\dataserviceclient.py">
       <SubType>Code</SubType>

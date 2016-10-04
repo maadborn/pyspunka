@@ -48,3 +48,6 @@ Temporary Items
 *.suo
 weatherservice/weatherservice/serviceconfig.py
 dataservice/dataservice/dataservice.pyproj.user
+
+__pycache__/
+*.py[cod]
