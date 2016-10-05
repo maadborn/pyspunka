@@ -3,54 +3,60 @@
 class WUTransformer:
     '''WUTransformer'''
 
-    def transform_data(self, data, location_id):
+    @staticmethod
+    def limit_to_one_decimal(num):
+        '''limit_to_one_decimal'''
+        return float('{0:.1f}'.format(WUTransformer.convert_to_float(num)))
+
+    @staticmethod
+    def convert_kmph_to_mps(kmph):
+        '''convert_kmph_to_mps'''
+        return WUTransformer.limit_to_one_decimal(kmph / 3.6)
+
+    @staticmethod
+    def convert_humidity_str_to_float(humidity_str):
+        '''convert_humidity_str_to_float'''
+        return WUTransformer.limit_to_one_decimal(humidity_str.replace('%', ''))
+
+    @staticmethod
+    def convert_to_float(arg):
+        '''convert_to_float'''
+        try:
+            return float(arg)
+        except ValueError:
+            return 0.0
+
+    @staticmethod
+    def convert_to_int(arg):
+        '''convert_to_int'''
+        try:
+            return int(arg)
+        except ValueError:
+            return 0
+
+    @staticmethod
+    def transform_data(data, location_id):
         '''transform_data'''
 
-        def limit_to_one_decimal(num):
-            '''limit_to_one_decimal'''
-            return float('{0:.1f}'.format(convert_to_float(num)))
-
-        def convert_kmph_to_mps(kmph):
-            '''convert_kmph_to_mps'''
-            return limit_to_one_decimal(kmph / 3.6)
-
-        def convert_humidity_str_to_float(humidity_str):
-            '''convert_humidity_str_to_float'''
-            return limit_to_one_decimal(humidity_str.replace('%', ''))
-
-        def convert_to_float(arg):
-            '''convert_to_float'''
-            try:
-                return float(arg)
-            except ValueError:
-                return 0.0
-
-        def convert_to_int(arg):
-            '''convert_to_int'''
-            try:
-                return int(arg)
-            except ValueError:
-                return 0
-
         if location_id is None:
-            raise Exception('location_id is missing in WUTransformer.tranform_data. Transform not possible.')
+            raise Exception('location_id is missing in WUTransformer.tranform_data. Returning.')
 
         obs = data['current_observation']
 
         new_data = {
-            'station_id':   obs['station_id'],                            ## "ESCF",
-            'obs_epoch':    obs['observation_epoch'],                     ## "1475328000",
-            'weather':      obs['weather'],                               ## "Mostly Cloudy",
-            'temp':         obs['temp_c'],                                ## 14,
-            'humidity':     convert_humidity_str_to_float(obs['relative_humidity']), ## "72%",
-            'wind_degrees': obs['wind_degrees'],                          ## 260,
-            'wind_mps':     convert_kmph_to_mps(obs['wind_kph']),         ## 18,
-            'pressure':     convert_to_float(obs['pressure_mb']),         ## "1009",
-            'UV':           convert_to_int(obs['UV']),                    ## "1",
-            'precip_1hr':   convert_to_float(obs['precip_1hr_metric']),   ## "--",
-            'precip_today': convert_to_float(obs['precip_today_metric']), ## "0.0",
-            'icon':         obs['icon'],                                  ## "mostlycloudy",
-            'icon_url':     obs['icon_url'],                              ## "http://icons.wxug.com/i/c/k/mostlycloudy.gif",
+            'station_id':   obs['station_id'],
+            'obs_epoch':    obs['observation_epoch'],
+            'weather':      obs['weather'],
+            'temp':         obs['temp_c'],
+            'humidity':     WUTransformer.convert_humidity_str_to_float(obs['relative_humidity']),
+            'wind_degrees': obs['wind_degrees'],
+            'wind_mps':     WUTransformer.convert_kmph_to_mps(obs['wind_kph']),
+            'pressure':     WUTransformer.convert_to_float(obs['pressure_mb']),
+            'UV':           WUTransformer.convert_to_int(obs['UV']),
+            'precip_1hr':   WUTransformer.convert_to_float(obs['precip_1hr_metric']),
+            'precip_today': WUTransformer.convert_to_float(obs['precip_today_metric']),
+            'icon':         obs['icon'],
+            'icon_url':     obs['icon_url'],
             'location_id':  location_id,
         }
 

@@ -17,7 +17,6 @@ class WeatherService:
 
     def start(self):
         '''start'''
-
         sleep_time = WeatherService.get_initial_sleep_time()
         logger.log_info('Sleeping for {} seconds'.format(sleep_time))
         time.sleep(sleep_time)
@@ -32,6 +31,7 @@ class WeatherService:
             time.sleep(serviceconfig.UPDATE_INTERVAL)
 
     def run_owm_collect(self):
+        '''run_owm_collect'''
         try:
             owm_data = self.owm_data_collector.collect_default()
             if owm_data is not None:
@@ -41,6 +41,7 @@ class WeatherService:
             logger.log_error('Failed to process OpenWeatherMap data in main loop', err)
 
     def run_wu_collect(self, wu_location):
+        '''run_wu_collect'''
         try:
             if wu_location is not None:
                 wu_data = self.wu_data_collector.collect(wu_location)
@@ -50,7 +51,9 @@ class WeatherService:
         except Exception as err:
             logger.log_error('Failed to process WeatherUnderground data in main loop', err)
 
+    @staticmethod
     def get_initial_sleep_time():
+        '''get_initial_sleep_time'''
         time_now = datetime.datetime.now()
         logger.log_info('Time now: {}'.format(time_now))
         sleep_time = (60 - time_now.minute) * 60 - (time_now.second)

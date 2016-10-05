@@ -25,7 +25,8 @@ class OpenWeatherMapDataCollector:
         '''Collects transformed data from OpenWeatherMap for default location'''
         return self.collect(serviceconfig.OWM_LOCATION_ID_DEFAULT)
 
-    def get_data(self, location_id):
+    @staticmethod
+    def get_data(location_id):
         '''Fetches data from OpenWeatherMap'''
         payload = {'id': location_id, 'appid': serviceconfig.OWM_API_KEY}
         response = requests.get(serviceconfig.OWM_URL, params=payload)

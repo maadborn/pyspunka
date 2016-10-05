@@ -32,7 +32,7 @@ class WUValidateTest(unittest.TestCase):
 
     testdata_wu_validate_error = {
         "response": {
-            "version": "0.1",
+            "version": "0.2",
             "termsofService": "http://www.wunderground.com/weather/api/d/terms.html",
             "features": {
                 "conditions": 1

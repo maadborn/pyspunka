@@ -3,8 +3,11 @@
 class OpenWeatherMapDataValidator:
     '''OpenWeatherMapDataValidator'''
 
-    def validate(self, data):
+    @staticmethod
+    def validate(data):
         '''Validates OpenWeatherMap data'''
+        if data is None:
+            raise Exception('Failed to validate received data: data missing')
         if str(data['cod']) != '200':
             raise Exception(
                 '{}: {}: {}'.format(

@@ -13,23 +13,28 @@ class DataServiceClient:
 
     #### OWM METHODS ####
 
-    def send_owm(self, data):
+    @staticmethod
+    def send_owm(data):
         '''send_owm'''
 
         # Skipping unique validation, let's always save the data
         #if not self.validate_unique_owm(data):
         #    return None
 
-        json_dumped_data = json.dumps(data)
+        dump = json.dumps(data)
 
         try:
-            headers = {'Content-type': 'application/json'}
-            response = requests.post(serviceconfig.URL_DATA_SERVICE_WEATHER, headers=headers, data=json_dumped_data)
+            hdrs = {'Content-type': 'application/json'}
+            response = requests.post(
+                serviceconfig.URL_DATA_SERVICE_WEATHER,
+                headers=hdrs,
+                data=dump)
             logger.log_info(response)
         except Exception as err:
             logger.log_error('Failed to send OWM weather data', err)
 
-    def validate_unique_owm(self, data_dict):
+    @staticmethod
+    def validate_unique_owm(data_dict):
         '''Validates that data service doesn't already contain the OWM data'''
         try:
             filters = {'locid': data_dict['locid'], 'time': data_dict['time']}
@@ -39,7 +44,10 @@ class DataServiceClient:
             if len(response.json()['_items']) == 0:
                 return True
             else:
-                logger.log_info('OWM values already stored - locid={}, time={}'.format(filters['locid'], filters['time']))
+                logger.log_info(
+                    'OWM values already stored - locid={}, time={}'.format(
+                        filters['locid'],
+                        filters['time']))
 
         except Exception as err:
             logger.log_error('Failed to validate unique OWM weather data', err)
@@ -48,7 +56,8 @@ class DataServiceClient:
 
     #### WU METHODS ####
 
-    def get_wu_location(self, city_id):
+    @staticmethod
+    def get_wu_location(city_id):
         '''get_wu_location'''
         payload = {'city_id': json.dumps(city_id)}
         response = requests.get(serviceconfig.URL_DATA_SERVICE_LOCATION, params=payload)
@@ -58,22 +67,27 @@ class DataServiceClient:
         '''get_wu_location_default'''
         return self.get_wu_location(serviceconfig.WU_LOCATION_CITY_ID_DEFAULT)
 
-    def send_wu(self, data):
+    @staticmethod
+    def send_wu(data):
         '''send_wu'''
         # Skipping unique validation, let's always save the data
         #if not self.validate_unique_wu(data):
         #    return None
 
-        json_dumped_data = json.dumps(data)
+        dump = json.dumps(data)
 
         try:
-            headers = {'Content-type': 'application/json'}
-            response = requests.post(serviceconfig.URL_DATA_SERVICE_WEATHER2, headers=headers, data=json_dumped_data)
+            hdrs = {'Content-type': 'application/json'}
+            response = requests.post(
+                serviceconfig.URL_DATA_SERVICE_WEATHER2,
+                headers=hdrs,
+                data=dump)
             logger.log_info(response)
         except Exception as err:
             logger.log_error('Failed to send WU weather data', err)
 
-    def validate_unique_wu(self, data_dict):
+    @staticmethod
+    def validate_unique_wu(data_dict):
         '''Validates that data service doesn't already contain the WU data'''
         try:
             filters = {'location_id': data_dict['location_id'], 'obs_epoch': data_dict['obs_epoch']}
@@ -83,7 +97,10 @@ class DataServiceClient:
             if len(response.json()['_items']) == 0:
                 return True
             else:
-                logger.log_info('WU values already stored - locid={}, time={}'.format(filters['locid'], filters['time']))
+                logger.log_info(
+                    'WU values already stored - locid={}, time={}'.format(
+                        filters['locid'],
+                        filters['time']))
 
         except Exception as err:
             logger.log_error('Failed to validate unique WU weather data', err)

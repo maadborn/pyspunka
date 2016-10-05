@@ -11,7 +11,10 @@ class WUTransformerTest(unittest.TestCase):
         transformer = WUTransformer()
         location_id = '01234567abcdef'
         transformed = transformer.transform_data(self.testdata_wu_transform, location_id)
-        self.assertDictEqual(transformed, self.testdata_wu_transform_expected, "Transformed structure is not the same as expected")
+        self.assertDictEqual(
+            transformed,
+            self.testdata_wu_transform_expected,
+            "Transformed structure is not the same as expected")
 
     testdata_wu_transform = {
         "response": {
@@ -101,8 +104,8 @@ class WUTransformerTest(unittest.TestCase):
             "icon": "mostlycloudy",
             "icon_url": "http://icons.wxug.com/i/c/k/mostlycloudy.gif",
             "forecast_url": "http://www.wunderground.com/global/stations/02562.html",
-            "history_url": "http://www.wunderground.com/history/airport/ESCF/2016/10/1/DailyHistory.html",
-            "ob_url": "http://www.wunderground.com/cgi-bin/findweather/getForecast?query=58.39805603,15.52583313",
+            "history_url": "http://www.wunderground.com/",
+            "ob_url": "http://www.wunderground.com/",
             "nowcast": ""
         }
     }

@@ -1,66 +1,76 @@
 '''OpenWeatherMapTransformer'''
+
 from boltons.iterutils import remap
 
 class OpenWeatherMapTransformer:
     '''OpenWeatherMapTransformer'''
 
-    def transform_data(self, data):
+    @staticmethod
+    def move_main(data):
+        '''Moves the main item's content to the root level'''
+        main = data['main']
+        data.update(main)
+        return data
+
+    @staticmethod
+    def visit_move(path, key, value):
+        '''Moves various items'''
+        if key == 'clouds':
+            return key, value['all']
+        if key == 'rain':
+            return key, value['3h']
+        if key == 'snow':
+            return key, value['3h']
+        if key == 'weather':
+            return key, value[0]
+        return True
+
+    @staticmethod
+    def visit_rename(path, key, value):
+        '''Renames various items'''
+        if key == 'coord':
+            return 'loccoords', value
+        if key == 'dt':
+            return 'time', value
+        if key == 'id' and 'weather' not in path:
+            return 'locid', value
+        if key == 'name':
+            return 'locname', value
+        if key == 'weather':
+            return 'weatherdescr', value
+        if key == 'rain':
+            return 'rain3h', value
+        if key == 'snow':
+            return 'snow3h', value
+        return True
+
+    @staticmethod
+    def visit_remove(path, key, value):
+        '''Removes various items'''
+        remove_list = [
+            'base',
+            'cod',
+            'sys',
+            'main',
+            'visibility',
+            'temp_min',
+            'temp_max',
+            'grnd_level',
+            'sea_level',
+        ]
+
+        if key in remove_list:
+            return False
+        return True
+
+    @staticmethod
+    def transform_data(data):
         '''Transforms OpenWeatherMap data to match our schema'''
 
-        def move_main(data):
-            '''Moves the main item's content to the root level'''
-            main = data['main']
-            data.update(main)
-            return data
-
-        def visit_move(path, key, value):
-            '''Moves various items'''
-            if key == 'clouds':
-                return key, value['all']
-            if key == 'rain':
-                return key, value['3h']
-            if key == 'snow':
-                return key, value['3h']
-            if key == 'weather':
-                return key, value[0]
-            return True
-
-        def visit_rename(path, key, value):
-            '''Renames various items'''
-            if key == 'coord':
-                return 'loccoords', value
-            if key == 'dt':
-                return 'time', value
-            if key == 'id' and 'weather' not in path:
-                return 'locid', value
-            if key == 'name':
-                return 'locname', value
-            if key == 'weather':
-                return 'weatherdescr', value
-            if key == 'rain':
-                return 'rain3h', value
-            if key == 'snow':
-                return 'snow3h', value
-            return True
-
-        def visit_remove(path, key, value):
-            '''Removes various items'''
-            if key == 'base' \
-            or key == 'cod' \
-            or key == 'sys' \
-            or key == 'main' \
-            or key == 'visibility' \
-            or key == 'temp_min' \
-            or key == 'temp_max' \
-            or key == 'grnd_level' \
-            or key == 'sea_level':
-                return False
-            return True
-
-        transformed_data = move_main(data)
-        transformed_data = remap(transformed_data, visit=visit_move)
-        transformed_data = remap(transformed_data, visit=visit_rename)
-        transformed_data = remap(transformed_data, visit=visit_remove)
+        transformed_data = OpenWeatherMapTransformer.move_main(data)
+        transformed_data = remap(transformed_data, visit=OpenWeatherMapTransformer.visit_move)
+        transformed_data = remap(transformed_data, visit=OpenWeatherMapTransformer.visit_rename)
+        transformed_data = remap(transformed_data, visit=OpenWeatherMapTransformer.visit_remove)
 
         return transformed_data
 

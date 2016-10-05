@@ -30,12 +30,14 @@ class WUDataCollector:
         '''collect_default'''
         return self.collect(serviceconfig.WU_DEFAULT_QUERY)
 
-    def get_data(self, location_query):
+    @staticmethod
+    def get_data(location_query):
         '''get_data'''
         url = serviceconfig.WU_URL.format(location_query)
         response = requests.get(url)
         return response.json()
 
-    def create_location_query(self, location):
+    @staticmethod
+    def create_location_query(location):
         '''create_location_query'''
         return '{}/{}'.format(location['state_name_wu'], location['city_wu'])

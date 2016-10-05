@@ -2,8 +2,14 @@
 
 def wu_validate(data):
     '''wu_validate'''
+    if data is None:
+        raise Exception('Failed to validate received data: data missing')
     if 'error' in data:
-        raise Exception('{}: {}: {}'.format('Failed to validate received data', data['error']['type'], data['error']['description']))
+        raise Exception(
+            '{}: {}: {}'.format(
+                'Failed to validate received data',
+                data['error']['type'],
+                data['error']['description']))
 
 # Failed request:
 #{
