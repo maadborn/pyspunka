@@ -1,4 +1,3 @@
-#import json
 from flask import Blueprint, Response
 from weatherdataaccess import get_weather_data_for
 from bson.json_util import dumps
